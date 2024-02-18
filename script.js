@@ -28,3 +28,19 @@ function operate(operator, firstValue, secondValue) {
             return;
     }
 }
+
+let calculatorDisplay = document.querySelector('#display');
+
+let digitButtons = document.querySelector('#numbers');
+
+digitButtons.addEventListener('click', (event) => {
+    if (event.target.tagName.toLowerCase() == 'button') {
+        const buttonValue = event.target.textContent;
+
+        if (calculatorDisplay.textContent == '0') {
+            calculatorDisplay.textContent = buttonValue;
+        } else {
+            calculatorDisplay.textContent += buttonValue;
+        }
+    }
+});
