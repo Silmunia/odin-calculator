@@ -31,6 +31,10 @@ function operate(operator, firstValue, secondValue) {
 
 let calculatorDisplay = document.querySelector('#display');
 
+let firstValue = null;
+let secondValue = null;
+let operationChoice = null;
+
 let digitButtons = document.querySelector('#numbers');
 
 digitButtons.addEventListener('click', (event) => {
@@ -42,5 +46,26 @@ digitButtons.addEventListener('click', (event) => {
         } else {
             calculatorDisplay.textContent += buttonValue;
         }
+
+        if (operationChoice === null) {
+            firstValue = firstValue === null 
+                ? buttonValue 
+                : firstValue + buttonValue;
+        } else {
+            secondValue = secondValue === null 
+                ? buttonValue 
+                : secondValue + buttonValue;
+        }
+    }
+});
+
+let operatorButtons = document.querySelector('#operators');
+
+operatorButtons.addEventListener('click', (event) => {
+    if (event.target.tagName.toLowerCase() == 'button') {
+        const buttonValue = event.target.textContent;
+
+        operationChoice = buttonValue;
+        calculatorDisplay.textContent += ` ${operationChoice} `;
     }
 });
