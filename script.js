@@ -81,15 +81,7 @@ function processOperatorInput(event) {
     }
 }
 
-let calculatorDisplay = document.querySelector('#display');
-
-let firstValue = null;
-let secondValue = null;
-let operationChoice = null;
-
-let digitButtons = document.querySelector('#numbers');
-
-digitButtons.addEventListener('click', (event) => {
+function processNumberInput(event) {
     if (event.target.tagName.toLowerCase() == 'button') {
         const buttonValue = event.target.textContent;
 
@@ -109,25 +101,9 @@ digitButtons.addEventListener('click', (event) => {
                 : secondValue + buttonValue;
         }
     }
-});
+}
 
-let operatorButtons = document.querySelector('#operators');
-
-operatorButtons.addEventListener('click', processOperatorInput);
-
-let clearButton = document.querySelector('#clear');
-
-clearButton.addEventListener('click', () => {
-    firstValue = null;
-    secondValue = null;
-
-    operationChoice = null;
-    calculatorDisplay.textContent = "0";
-});
-
-let backspaceButton = document.querySelector("#backspace");
-
-backspaceButton.addEventListener('click', () => {
+function processBackspaceInput() {
     if (firstValue !== null && operationChoice === null) {
         firstValue = firstValue.slice(0, -1);
 
@@ -159,4 +135,32 @@ backspaceButton.addEventListener('click', () => {
             calculatorDisplay.textContent = "0";
         }
     }
+}
+
+let calculatorDisplay = document.querySelector('#display');
+
+let firstValue = null;
+let secondValue = null;
+let operationChoice = null;
+
+let numberButtons = document.querySelector('#numbers');
+
+numberButtons.addEventListener('click', processNumberInput);
+
+let operatorButtons = document.querySelector('#operators');
+
+operatorButtons.addEventListener('click', processOperatorInput);
+
+let clearButton = document.querySelector('#clear');
+
+clearButton.addEventListener('click', () => {
+    firstValue = null;
+    secondValue = null;
+
+    operationChoice = null;
+    calculatorDisplay.textContent = "0";
 });
+
+let backspaceButton = document.querySelector("#backspace");
+
+backspaceButton.addEventListener('click', processBackspaceInput);
