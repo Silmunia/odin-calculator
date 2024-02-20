@@ -141,25 +141,25 @@ function processBackspaceInput() {
     }
 }
 
-let calculatorDisplay = document.querySelector('#display');
+const calculatorDisplay = document.querySelector('#display');
 
 let firstValue = null;
 let secondValue = null;
 let operationChoice = null;
 
-let numberButtons = document.querySelector('#numbers');
+const numberButtons = document.querySelector('#numbers');
 
 numberButtons.addEventListener('click', (event) => {
     callWhenButtonEvent(event, processNumberInput);
 });
 
-let operatorButtons = document.querySelector('#operators');
+const operatorButtons = document.querySelector('#operators');
 
 operatorButtons.addEventListener('click', (event) => {
     callWhenButtonEvent(event, processOperatorInput);
 });
 
-let clearButton = document.querySelector('#clear');
+const clearButton = document.querySelector('#clear');
 
 clearButton.addEventListener('click', () => {
     firstValue = null;
@@ -169,6 +169,6 @@ clearButton.addEventListener('click', () => {
     calculatorDisplay.textContent = "0";
 });
 
-let backspaceButton = document.querySelector("#backspace");
+const backspaceButton = document.querySelector("#backspace");
 
 backspaceButton.addEventListener('click', processBackspaceInput);
