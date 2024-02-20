@@ -124,3 +124,39 @@ clearButton.addEventListener('click', () => {
     operationChoice = null;
     calculatorDisplay.textContent = "0";
 });
+
+let backspaceButton = document.querySelector("#backspace");
+
+backspaceButton.addEventListener('click', () => {
+    if (firstValue !== null && operationChoice === null) {
+        firstValue = firstValue.slice(0, -1);
+
+        if (firstValue === '') {
+            firstValue = null;
+        }
+
+        calculatorDisplay.textContent = calculatorDisplay
+                                        .textContent.slice(0, -1);
+
+        if (calculatorDisplay.textContent === '') {
+            calculatorDisplay.textContent = "0";
+        }
+    } else if (secondValue === null && operationChoice !== null) {
+        operationChoice = null;
+        calculatorDisplay.textContent = calculatorDisplay
+                                        .textContent.slice(0, -3);
+    } else if (secondValue !== null) {
+        secondValue = secondValue.slice(0, -1);
+
+        if (secondValue === '') {
+            secondValue = null;
+        }
+
+        calculatorDisplay.textContent = calculatorDisplay
+                                        .textContent.slice(0, -1);
+
+        if (calculatorDisplay.textContent === '') {
+            calculatorDisplay.textContent = "0";
+        }
+    }
+});
