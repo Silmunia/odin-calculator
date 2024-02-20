@@ -34,72 +34,76 @@ function operate(operator, firstValue, secondValue) {
     }
 }
 
-function processOperatorInput(event) {
+function callWhenButtonEvent(event, callback) {
     if (event.target.tagName.toLowerCase() == 'button') {
         const buttonValue = event.target.textContent;
 
-        if (buttonValue === '.') {
-            if (firstValue !== null 
-                && operationChoice === null 
-                && !firstValue.includes(".")
-            ) {
-                firstValue += buttonValue;
-                calculatorDisplay.textContent += buttonValue;
-            } else if (secondValue !== null && !secondValue.includes(".")) {
-                secondValue += buttonValue;
-                calculatorDisplay.textContent += buttonValue;
-            }
-        } else if (buttonValue === '=' && secondValue !== null) {
-            const operationResult = operate(
-                operationChoice, 
-                Number(firstValue), 
-                Number(secondValue)
-            );
-
-            firstValue = `${operationResult}`;
-            secondValue = null;
-
-            operationChoice = null;
-            calculatorDisplay.textContent = `${operationResult}`;
-        } else if (secondValue !== null) {
-            const operationResult = operate(
-                operationChoice, 
-                Number(firstValue), 
-                Number(secondValue)
-            );
-
-            firstValue = `${operationResult}`;
-            secondValue = null;
-
-            operationChoice = buttonValue;
-            calculatorDisplay.textContent = `${operationResult}` 
-                + " " + operationChoice + " ";
-        } else if (buttonValue !== '=' && firstValue !== null) {
-            operationChoice = buttonValue;
-            calculatorDisplay.textContent += ` ${operationChoice} `;
-        }
+        callback(buttonValue);
     }
 }
 
-function processNumberInput(event) {
-    if (event.target.tagName.toLowerCase() == 'button') {
-        const buttonValue = event.target.textContent;
+function processOperatorInput(input) {
+    const buttonValue = input;
 
-        if (calculatorDisplay.textContent == '0') {
-            calculatorDisplay.textContent = buttonValue;
-        } else {
+    if (buttonValue === '.') {
+        if (firstValue !== null 
+            && operationChoice === null 
+            && !firstValue.includes(".")
+        ) {
+            firstValue += buttonValue;
+            calculatorDisplay.textContent += buttonValue;
+        } else if (secondValue !== null && !secondValue.includes(".")) {
+            secondValue += buttonValue;
             calculatorDisplay.textContent += buttonValue;
         }
+    } else if (buttonValue === '=' && secondValue !== null) {
+        const operationResult = operate(
+            operationChoice, 
+            Number(firstValue), 
+            Number(secondValue)
+        );
 
-        if (operationChoice === null) {
-            firstValue = firstValue === null 
-                ? buttonValue 
-                : firstValue + buttonValue;
-        } else {
-            secondValue = secondValue === null 
-                ? buttonValue 
-                : secondValue + buttonValue;
-        }
+        firstValue = `${operationResult}`;
+        secondValue = null;
+
+        operationChoice = null;
+        calculatorDisplay.textContent = `${operationResult}`;
+    } else if (secondValue !== null) {
+        const operationResult = operate(
+            operationChoice, 
+            Number(firstValue), 
+            Number(secondValue)
+        );
+
+        firstValue = `${operationResult}`;
+        secondValue = null;
+
+        operationChoice = buttonValue;
+        calculatorDisplay.textContent = `${operationResult}` 
+            + " " + operationChoice + " ";
+    } else if (buttonValue !== '=' && firstValue !== null) {
+        operationChoice = buttonValue;
+        calculatorDisplay.textContent += ` ${operationChoice} `;
+    }
+}
+
+function processNumberInput(input) {
+    const buttonValue = input;
+
+    if (calculatorDisplay.textContent == '0') {
+        calculatorDisplay.textContent = buttonValue;
+    } else {
+        calculatorDisplay.textContent += buttonValue;
+    }
+
+    if (operationChoice === null) {
+        firstValue = firstValue === null 
+            ? buttonValue 
+            : firstValue + buttonValue;
+    } else {
+        secondValue = secondValue === null 
+            ? buttonValue 
+            : secondValue + buttonValue;
     }
 }
 
@@ -145,11 +149,15 @@ let operationChoice = null;
 
 let numberButtons = document.querySelector('#numbers');
 
-numberButtons.addEventListener('click', processNumberInput);
+numberButtons.addEventListener('click', (event) => {
+    callWhenButtonEvent(event, processNumberInput);
+});
 
 let operatorButtons = document.querySelector('#operators');
 
-operatorButtons.addEventListener('click', processOperatorInput);
+operatorButtons.addEventListener('click', (event) => {
+    callWhenButtonEvent(event, processOperatorInput);
+});
 
 let clearButton = document.querySelector('#clear');
 
