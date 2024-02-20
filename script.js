@@ -29,6 +29,42 @@ function operate(operator, firstValue, secondValue) {
     }
 }
 
+function processOperatorInput(event) {
+    if (event.target.tagName.toLowerCase() == 'button') {
+        const buttonValue = event.target.textContent;
+
+        if (buttonValue === '=' && secondValue !== null) {
+            const operationResult = operate(
+                operationChoice, 
+                Number(firstValue), 
+                Number(secondValue)
+            );
+
+            firstValue = operationResult;
+            secondValue = null;
+
+            operationChoice = null;
+            calculatorDisplay.textContent = operationResult;
+        } else if (secondValue !== null) {
+            const operationResult = operate(
+                operationChoice, 
+                Number(firstValue), 
+                Number(secondValue)
+            );
+
+            firstValue = operationResult;
+            secondValue = null;
+
+            operationChoice = buttonValue;
+            calculatorDisplay.textContent = operationResult 
+                + " " + operationChoice + " ";
+        } else if (firstValue !== null) {
+            operationChoice = buttonValue;
+            calculatorDisplay.textContent += ` ${operationChoice} `;
+        }
+    }
+}
+
 let calculatorDisplay = document.querySelector('#display');
 
 let firstValue = null;
@@ -61,11 +97,4 @@ digitButtons.addEventListener('click', (event) => {
 
 let operatorButtons = document.querySelector('#operators');
 
-operatorButtons.addEventListener('click', (event) => {
-    if (event.target.tagName.toLowerCase() == 'button') {
-        const buttonValue = event.target.textContent;
-
-        operationChoice = buttonValue;
-        calculatorDisplay.textContent += ` ${operationChoice} `;
-    }
-});
+operatorButtons.addEventListener('click', processOperatorInput);
