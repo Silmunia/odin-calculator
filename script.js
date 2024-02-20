@@ -141,6 +141,14 @@ function processBackspaceInput() {
     }
 }
 
+function clearCalculator() {
+    firstValue = null;
+    secondValue = null;
+
+    operationChoice = null;
+    calculatorDisplay.textContent = "0";
+}
+
 const calculatorDisplay = document.querySelector('#display');
 
 let firstValue = null;
@@ -161,13 +169,7 @@ operatorButtons.addEventListener('click', (event) => {
 
 const clearButton = document.querySelector('#clear');
 
-clearButton.addEventListener('click', () => {
-    firstValue = null;
-    secondValue = null;
-
-    operationChoice = null;
-    calculatorDisplay.textContent = "0";
-});
+clearButton.addEventListener('click', clearCalculator);
 
 const backspaceButton = document.querySelector("#backspace");
 
@@ -187,5 +189,7 @@ document.addEventListener('keydown', (event) => {
         event.preventDefault();
     } else if (numberArray.includes(key)) {
         processNumberInput(key)
+    } else if (key == "Escape") {
+        clearCalculator();
     }
 });
