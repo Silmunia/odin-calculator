@@ -58,7 +58,7 @@ function processOperatorInput(event) {
             operationChoice = buttonValue;
             calculatorDisplay.textContent = operationResult 
                 + " " + operationChoice + " ";
-        } else if (firstValue !== null) {
+        } else if (buttonValue !== '=' && firstValue !== null) {
             operationChoice = buttonValue;
             calculatorDisplay.textContent += ` ${operationChoice} `;
         }
