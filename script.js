@@ -172,3 +172,20 @@ clearButton.addEventListener('click', () => {
 const backspaceButton = document.querySelector("#backspace");
 
 backspaceButton.addEventListener('click', processBackspaceInput);
+
+document.addEventListener('keydown', (event) => {
+    const key = event.key;
+
+    const operatorArray = ["+", "-", "*", "/", "=", "."];
+
+    const numberArray = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
+    if (key == "Backspace") {
+        processBackspaceInput();
+    } else if (operatorArray.includes(key)) {
+        processOperatorInput(key);
+        event.preventDefault();
+    } else if (numberArray.includes(key)) {
+        processNumberInput(key)
+    }
+});
