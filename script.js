@@ -38,7 +38,18 @@ function processOperatorInput(event) {
     if (event.target.tagName.toLowerCase() == 'button') {
         const buttonValue = event.target.textContent;
 
-        if (buttonValue === '=' && secondValue !== null) {
+        if (buttonValue === '.') {
+            if (firstValue !== null 
+                && operationChoice === null 
+                && !firstValue.includes(".")
+            ) {
+                firstValue += buttonValue;
+                calculatorDisplay.textContent += buttonValue;
+            } else if (secondValue !== null && !secondValue.includes(".")) {
+                secondValue += buttonValue;
+                calculatorDisplay.textContent += buttonValue;
+            }
+        } else if (buttonValue === '=' && secondValue !== null) {
             const operationResult = operate(
                 operationChoice, 
                 Number(firstValue), 
