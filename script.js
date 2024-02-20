@@ -98,3 +98,13 @@ digitButtons.addEventListener('click', (event) => {
 let operatorButtons = document.querySelector('#operators');
 
 operatorButtons.addEventListener('click', processOperatorInput);
+
+let clearButton = document.querySelector('#clear');
+
+clearButton.addEventListener('click', () => {
+    firstValue = null;
+    secondValue = null;
+
+    operationChoice = null;
+    calculatorDisplay.textContent = "0";
+});
