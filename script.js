@@ -56,11 +56,11 @@ function processOperatorInput(event) {
                 Number(secondValue)
             );
 
-            firstValue = operationResult;
+            firstValue = `${operationResult}`;
             secondValue = null;
 
             operationChoice = null;
-            calculatorDisplay.textContent = operationResult;
+            calculatorDisplay.textContent = `${operationResult}`;
         } else if (secondValue !== null) {
             const operationResult = operate(
                 operationChoice, 
@@ -68,11 +68,11 @@ function processOperatorInput(event) {
                 Number(secondValue)
             );
 
-            firstValue = operationResult;
+            firstValue = `${operationResult}`;
             secondValue = null;
 
             operationChoice = buttonValue;
-            calculatorDisplay.textContent = operationResult 
+            calculatorDisplay.textContent = `${operationResult}` 
                 + " " + operationChoice + " ";
         } else if (buttonValue !== '=' && firstValue !== null) {
             operationChoice = buttonValue;
